@@ -55,6 +55,7 @@ data.cols.forEach((week, column) => {
     });
     const noun = count === 1 ? "contribution" : "contributions";
     cell.title = `${pretty}: ${count} ${noun}`;
+    cell.style.animationDelay = `${column * 14}ms`;
     graph.append(cell);
   });
 });
@@ -77,35 +78,71 @@ if (beds) {
 }
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-if (!reduceMotion) {
+const reveals = [...document.querySelectorAll(".reveal")];
+
+if (reduceMotion) {
+  reveals.forEach((el) => el.classList.add("is-in"));
+} else {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const group = [...entry.target.parentElement.children].filter((el) => el.classList.contains("reveal"));
+      const index = Math.max(0, group.indexOf(entry.target));
+      entry.target.style.setProperty("--d", `${index * 70}ms`);
+      entry.target.classList.add("is-in");
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+
+  reveals.forEach((el) => {
+    if (el.id === "about") return;
+    observer.observe(el);
+  });
+
   document.querySelectorAll(".note").forEach((note) => {
     let originX = 0;
     let originY = 0;
     let movedX = 0;
     let movedY = 0;
     let dragging = false;
-    const rot = note.dataset.rot || "0";
+    let lastX = 0;
+    let lastTime = 0;
+    let velocity = 0;
+    const rot = Number(note.dataset.rot || 0);
 
     note.addEventListener("pointerdown", (event) => {
       if (getComputedStyle(note).position !== "absolute") return;
       dragging = true;
-      originX = event.clientX;
+      originX = lastX = event.clientX;
       originY = event.clientY;
+      lastTime = event.timeStamp;
+      velocity = 0;
+      note.classList.add("is-held");
       note.setPointerCapture(event.pointerId);
     });
 
     note.addEventListener("pointermove", (event) => {
       if (!dragging) return;
+      const dt = Math.max(16, event.timeStamp - lastTime);
+      velocity = (event.clientX - lastX) / dt;
+      lastX = event.clientX;
+      lastTime = event.timeStamp;
       const x = movedX + event.clientX - originX;
       const y = movedY + event.clientY - originY;
-      note.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg)`;
+      const tilt = Math.max(-7, Math.min(7, velocity * 9));
+      note.style.transform = `translate(${x}px, ${y}px) rotate(${rot + tilt}deg)`;
     });
 
     const end = (event) => {
       if (!dragging) return;
       dragging = false;
-      movedX += event.clientX - originX;
+      const flick = Math.max(-16, Math.min(16, velocity * 42));
+      movedX += event.clientX - originX + flick;
       movedY += event.clientY - originY;
+      note.classList.remove("is-held");
+      requestAnimationFrame(() => {
+        note.style.transform = `translate(${movedX}px, ${movedY}px) rotate(${rot}deg)`;
+      });
     };
 
     note.addEventListener("pointerup", end);

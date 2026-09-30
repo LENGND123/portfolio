@@ -128,9 +128,10 @@ a { color: inherit; }
   padding: 6px 10px;
   border-radius: 999px;
   white-space: nowrap;
+  transition: color 0.2s ease, background 0.2s ease;
 }
 
-.nav a:hover { color: var(--on-mat); }
+.nav a:hover { color: var(--on-mat); background: rgba(255, 255, 255, 0.06); }
 
 .connect {
   flex: none;
@@ -146,9 +147,11 @@ a { color: inherit; }
   font-weight: 650;
   text-decoration: none;
   white-space: nowrap;
+  transition: translate 0.2s ease, filter 0.2s ease, scale 0.12s ease;
 }
 
-.connect:hover { filter: brightness(1.08); }
+.connect:hover { filter: brightness(1.1); translate: 0 -2px; }
+.connect:active { scale: 0.98; }
 
 .dot {
   width: 6px;
@@ -189,6 +192,19 @@ a { color: inherit; }
   color: var(--ink-soft);
   user-select: none;
   touch-action: none;
+  animation: bob 5.4s ease-in-out infinite;
+}
+
+.note:nth-child(2) { animation-duration: 6.1s; animation-delay: -1.4s; }
+.note:nth-child(3) { animation-duration: 4.8s; animation-delay: -2.2s; }
+.note:nth-child(4) { animation-duration: 6.6s; animation-delay: -0.6s; }
+.note:nth-child(5) { animation-duration: 5.2s; animation-delay: -3s; }
+
+.note.is-held { animation-play-state: paused; }
+
+@keyframes bob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
 }
 
 .note b {
@@ -251,8 +267,13 @@ a { color: inherit; }
   background: #fbf7ef;
   border-radius: 4px;
   box-shadow: 0 8px 18px -12px rgba(0, 0, 0, 0.55);
-  transform: rotate(-3.2deg);
   justify-self: center;
+  animation: sway 8s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% { rotate: -4.4deg; }
+  50% { rotate: -1.2deg; }
 }
 
 .polaroid img {
@@ -307,9 +328,14 @@ h1 {
   color: var(--ink-soft);
   background: var(--paper-sunk);
   text-decoration: none;
+  transition: translate 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 
-.socials a:hover { color: var(--accent-ink); }
+.socials a:hover {
+  color: var(--accent-ink);
+  background: #fff;
+  translate: 0 -2px;
+}
 
 .intro {
   margin: 14px 0 0;
@@ -325,6 +351,17 @@ h1 {
   padding-left: 14px;
   color: var(--ink);
   font-size: 14.5px;
+  animation: rise 0.7s cubic-bezier(0.16, 0.84, 0.3, 1) both;
+}
+
+.intro li:nth-child(1) { animation-delay: 0.12s; }
+.intro li:nth-child(2) { animation-delay: 0.22s; }
+.intro li:nth-child(3) { animation-delay: 0.32s; }
+.intro li:nth-child(4) { animation-delay: 0.42s; }
+
+@keyframes rise {
+  from { opacity: 0; translate: 0 10px; }
+  to { opacity: 1; translate: 0 0; }
 }
 
 .intro li::before {
@@ -418,6 +455,15 @@ h1 {
   height: 10px;
   border-radius: 2px;
   background: var(--g0);
+  animation: stamp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  transition: scale 0.15s ease;
+}
+
+.cell:hover { scale: 1.55; }
+
+@keyframes stamp {
+  from { opacity: 0; scale: 0.15; }
+  to { opacity: 1; scale: 1; }
 }
 
 .cell[data-l="1"] { background: var(--g1); }
@@ -484,7 +530,24 @@ h2 {
   color: #f7f3ea;
 }
 
-.cover svg { width: 100%; height: 100%; display: block; }
+.cover svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: scale 0.6s ease;
+}
+
+.card:hover .cover svg { scale: 1.045; }
+
+.spoke {
+  transform-box: view-box;
+  transform-origin: 230px 146px;
+  animation: roll 9s linear infinite;
+}
+
+@keyframes roll {
+  to { transform: rotate(360deg); }
+}
 
 .card h3 { margin: 0; font-size: 20px; letter-spacing: -0.02em; }
 
@@ -539,6 +602,13 @@ h2 {
   background: var(--paper-sunk);
   border-radius: 10px;
   padding: 12px;
+  transition: translate 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+}
+
+.postcard:hover {
+  translate: 0 -4px;
+  background: #fff;
+  box-shadow: 0 10px 18px -14px rgba(0, 0, 0, 0.55);
 }
 
 .postcard .org {
@@ -577,9 +647,16 @@ h2 {
   color: var(--ink);
   border-radius: 999px;
   padding: 4px 10px;
+  border: 1px solid transparent;
+  transition: translate 0.2s ease, color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
-.pill:hover { color: var(--accent-ink); }
+.pill:hover {
+  color: var(--accent-ink);
+  background: #fff;
+  border-color: var(--accent);
+  translate: 0 -2px;
+}
 
 form { display: flex; flex-direction: column; gap: 10px; color-scheme: light; }
 
@@ -612,9 +689,11 @@ button {
   border-radius: 999px;
   padding: 9px 16px;
   cursor: pointer;
+  transition: translate 0.2s ease, filter 0.2s ease, scale 0.12s ease;
 }
 
-button:hover { filter: brightness(1.06); }
+button:hover { filter: brightness(1.08); translate: 0 -2px; }
+button:active { scale: 0.98; }
 
 .form-status { margin: 0; min-height: 1.2em; font-size: 13px; color: var(--ink-soft); }
 
@@ -654,9 +733,10 @@ button:hover { filter: brightness(1.06); }
     position: absolute;
     pointer-events: auto;
     cursor: grab;
+    transition: transform 0.55s cubic-bezier(0.16, 0.84, 0.32, 1);
   }
 
-  .note:active { cursor: grabbing; }
+  .note.is-held { cursor: grabbing; transition: none; }
   .note:nth-child(1) { top: 118px; left: max(16px, calc(50% - 520px)); transform: rotate(-8deg); }
   .note:nth-child(2) { top: 250px; right: max(16px, calc(50% - 520px)); transform: rotate(7deg); }
   .note:nth-child(3) { top: 470px; left: max(18px, calc(50% - 500px)); transform: rotate(6deg); }
@@ -664,8 +744,35 @@ button:hover { filter: brightness(1.06); }
   .note:nth-child(5) { top: 980px; left: max(28px, calc(50% - 490px)); transform: rotate(-4deg); }
 }
 
+.js .reveal {
+  opacity: 0;
+  translate: 0 28px;
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 0.84, 0.3, 1),
+    translate 0.8s cubic-bezier(0.16, 0.84, 0.3, 1),
+    box-shadow 0.28s ease;
+  transition-delay: var(--d, 0ms);
+}
+
+.js .reveal.is-in,
+.js #about.reveal {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.js #about.reveal { transition: none; }
+
+.js .card.is-in:hover {
+  translate: 0 -8px;
+  transition-delay: 0ms;
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.35),
+    0 16px 30px -14px rgba(0, 0, 0, 0.55);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .dot { animation: none; }
+  .dot, .note, .polaroid, .cell, .spoke, .intro li { animation: none; }
+  .js .reveal { opacity: 1; translate: none; transition: none; }
   .note { cursor: default; }
 }

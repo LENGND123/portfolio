@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#1a2e26" />
   <meta name="description" content="Aditya Raj Singh — computer science student in Ajmer. Full-stack apps, computer vision, and the public repos behind them." />
   <title>Aditya Raj Singh — Portfolio</title>
+  <script>document.documentElement.classList.add("js");</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -37,7 +38,7 @@
       </div>
 
       <main class="column">
-        <section class="paper paper-grain" id="about">
+        <section class="paper paper-grain reveal" id="about">
           <div class="hero-grid">
             <figure class="polaroid">
               <img src="assets/portrait.jpg" alt="Aditya Raj Singh, standing under white drapes in a light patterned jacket" />
@@ -71,7 +72,7 @@
           </div>
         </section>
 
-        <section class="paper paper-grain activity" aria-labelledby="activity-title">
+        <section class="paper paper-grain reveal activity" aria-labelledby="activity-title">
           <span class="tape tape-l" aria-hidden="true"></span>
           <span class="tape tape-r" aria-hidden="true"></span>
           <div class="activity-head">
@@ -100,7 +101,7 @@
           </div>
         </section>
 
-        <section class="paper paper-grain" id="work">
+        <section class="paper paper-grain reveal" id="work">
           <p class="kicker">Education &amp; what I build</p>
           <div class="split">
             <div>
@@ -155,7 +156,7 @@
         <section id="projects" aria-labelledby="projects-title">
           <p class="kicker" id="projects-title" style="color:var(--on-mat-soft)">Projects pinned up</p>
           <div class="postcards" style="gap:16px">
-            <article class="paper paper-grain card">
+            <article class="paper paper-grain reveal card">
               <div class="cover" aria-hidden="true">
                 <svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg">
                   <rect width="640" height="280" fill="#1a2e26"/>
@@ -182,7 +183,7 @@
               </div>
             </article>
 
-            <article class="paper paper-grain card">
+            <article class="paper paper-grain reveal card">
               <div class="cover" aria-hidden="true">
                 <svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg">
                   <rect width="640" height="280" fill="#2a2118"/>
@@ -214,13 +215,16 @@
               </div>
             </article>
 
-            <article class="paper paper-grain card">
+            <article class="paper paper-grain reveal card">
               <div class="cover" aria-hidden="true">
                 <svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg">
                   <rect width="640" height="280" fill="#101820"/>
                   <circle cx="230" cy="146" r="88" fill="none" stroke="#7d8b86" stroke-width="16"/>
                   <circle cx="230" cy="146" r="28" fill="#1c2a28"/>
-                  <line x1="230" y1="146" x2="300" y2="96" stroke="#e2793c" stroke-width="8" stroke-linecap="round"/>
+                  <g class="spoke">
+                    <line x1="230" y1="146" x2="300" y2="96" stroke="#e2793c" stroke-width="8" stroke-linecap="round"/>
+                    <circle cx="300" cy="96" r="5" fill="#f7f3ea"/>
+                  </g>
                   <text x="390" y="120" fill="#9be9a8" font-family="Geist Mono,monospace" font-size="28">+24°</text>
                   <text x="390" y="156" fill="#a9c1b3" font-family="Inter,sans-serif" font-size="14">both hands locked</text>
                   <text x="390" y="182" fill="#a9c1b3" font-family="Inter,sans-serif" font-size="14">calibrated · 3s</text>
@@ -239,7 +243,7 @@
               </div>
             </article>
 
-            <article class="paper paper-grain card">
+            <article class="paper paper-grain reveal card">
               <div class="cover" aria-hidden="true">
                 <svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg">
                   <rect width="640" height="280" fill="#f3efe4"/>
@@ -262,7 +266,7 @@
           </div>
         </section>
 
-        <section class="paper paper-grain" id="practice">
+        <section class="paper paper-grain reveal" id="practice">
           <div class="activity-head">
             <p class="kicker" style="margin:0">Internship practice</p>
             <a class="link-ink" href="https://github.com/LENGND123?tab=repositories" target="_blank" rel="noopener noreferrer">More on GitHub</a>
@@ -296,7 +300,7 @@
           </div>
         </section>
 
-        <section class="paper paper-grain" id="notes">
+        <section class="paper paper-grain reveal" id="notes">
           <p class="kicker">Notes from the desk</p>
           <div class="notes">
             <article class="note-card">
@@ -314,7 +318,7 @@
           </div>
         </section>
 
-        <section class="paper paper-grain" id="stack" aria-labelledby="stack-title">
+        <section class="paper paper-grain reveal" id="stack" aria-labelledby="stack-title">
           <p class="kicker" id="stack-title">Things I reach for</p>
           <div class="groups">
             <div class="group">
@@ -348,7 +352,7 @@
           </div>
         </section>
 
-        <section class="paper paper-grain" id="contact">
+        <section class="paper paper-grain reveal" id="contact">
           <p class="kicker">Say hello</p>
           <p class="blurb" style="margin-bottom:12px">Open to internships, junior roles, and project work. Based in Ajmer, glad to work remote.</p>
           <form id="hello">
