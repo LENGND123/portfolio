@@ -9,7 +9,7 @@
   <script>document.documentElement.classList.add("js");</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Fraunces:opsz,wght@9..144,560;9..144,640&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%231a2e26' width='32' height='32' rx='8'/%3E%3Ctext x='16' y='22' text-anchor='middle' fill='%23f7f3ea' font-size='14' font-family='sans-serif'%3EA%3C/text%3E%3C/svg%3E" />
 </head>
@@ -47,6 +47,7 @@
             <div>
               <div class="identity">
                 <div>
+                  <p class="handline">hello from the desk</p>
                   <h1>Aditya Raj Singh</h1>
                   <p class="role">CS undergrad · Ajmer · Python + TypeScript</p>
                 </div>
@@ -62,6 +63,11 @@
                   </a>
                 </div>
               </div>
+              <ul class="stats">
+                <li><b>234</b><span>contributions this year</span></li>
+                <li><b>36</b><span>public repositories</span></li>
+                <li><b>Ajmer</b><span>open to remote work</span></li>
+              </ul>
               <ul class="intro">
                 <li>I’m a computer science undergrad in Ajmer, building full-stack apps and computer-vision tools, then putting the code where someone else can run it.</li>
                 <li>I shipped <a href="https://github.com/LENGND123/ai-interview-prep">DryRun</a> — a MERN interview gym. You pick a role, Gemini writes the questions, scores each answer, and the history stays on that account.</li>
@@ -154,7 +160,7 @@
         </section>
 
         <section id="projects" aria-labelledby="projects-title">
-          <p class="kicker" id="projects-title" style="color:var(--on-mat-soft)">Projects pinned up</p>
+          <p class="kicker on-desk" id="projects-title">Projects pinned up</p>
           <div class="postcards" style="gap:16px">
             <article class="paper paper-grain reveal card">
               <div class="cover" aria-hidden="true">
