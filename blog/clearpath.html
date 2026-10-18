@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Aditya Raj Singh" />
+  <meta name="description" content="How Clearpath uses a FalkorDB graph to page, freeze, and remember. A Graph Hacks project by Aditya Raj Singh." />
+  <link rel="canonical" href="https://lengnd123.github.io/portfolio/blog/clearpath.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="The on-call question is a path, not a paragraph" />
+  <meta property="og:description" content="Clearpath is an on-call desk whose pages, freezes, and memory all come from FalkorDB." />
+  <meta property="og:url" content="https://lengnd123.github.io/portfolio/blog/clearpath.html" />
+  <title>The on-call question is a path, not a paragraph — Aditya Raj Singh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,520;9..144,640&family=Inter:wght@400;560&display=swap" rel="stylesheet" />
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #f4efe4;
+      color: #23211d;
+      font-family: Inter, "Segoe UI", sans-serif;
+      line-height: 1.7;
+    }
+    article {
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 3.5rem 1.4rem 5rem;
+    }
+    .back {
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    a { color: #b8551f; }
+    h1 {
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 560;
+      font-size: clamp(2.2rem, 5vw, 3.3rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin: 0.8rem 0 0.6rem;
+    }
+    .meta { color: #635c50; margin: 0 0 2rem; }
+    h2 {
+      font-family: Fraunces, Georgia, serif;
+      font-weight: 560;
+      font-size: 1.55rem;
+      line-height: 1.2;
+      margin: 2.2rem 0 0.6rem;
+    }
+    p { margin: 0 0 1rem; }
+    code {
+      font-family: "Cascadia Mono", ui-monospace, monospace;
+      font-size: 0.92em;
+      background: #efe9dc;
+      padding: 0.05em 0.3em;
+      border-radius: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <article>
+    <p class="back"><a href="https://lengnd123.github.io/portfolio/">Aditya Raj Singh</a></p>
+    <h1>The on-call question is a path, not a paragraph</h1>
+    <p class="meta">18 October 2026 · Graph Hacks, WeMakeDevs × FalkorDB</p>
+
+    <p>I spent the weekend building Clearpath, a small on-call desk for a fake company called Harbor Pay. The brief from Graph Hacks was specific: an agent is only useful if it can follow connections, remember a previous session, and show why it acted. I put all three in FalkorDB and then tried to take the database away. The product stops.</p>
+
+    <p>Harbor Pay does not exist. The people, accounts, and tickets are generated. That was a rule, and it also made the demo honest. I can tell you exactly why Sara Iqbal gets paged and why Mira Shah's household account does not get frozen.</p>
+
+    <h2>The question that looks easy</h2>
+    <p>"What breaks if the ledger goes down?" is not a lookup. Ledger has one outgoing dependency, Postgres. The damage runs the other direction. Payments and risk call ledger. Checkout calls both of those. Mobile calls checkout. Settlement and notifications call payments. Card-network is a dependency of payments, so a ledger outage does not take the card network down. A card-network outage does take payments down. The arrow is the answer.</p>
+
+    <p>Clearpath asks FalkorDB's single-source shortest paths to walk incoming <code>DEPENDS_ON</code> edges from the failed service. It also runs the same pattern as a variable-length Cypher match. When the two sets agree, that set is the blast radius. The agent then opens one incident, pages a person, and writes a decision that cites the ledger procedure. Asking again updates that incident instead of stacking a second one.</p>
+
+    <p>Who gets paged is also an edge. Sara is <code>ON_CALL_FOR</code> ledger. Rohan <code>OWNS</code> it. The agent pages Sara. PageRank on the <code>KNOWS</code> graph is visible in the trace and is not allowed to overrule the on-call edge.</p>
+
+    <p>Notifications is the case where the score earns its keep. Nobody is on call, and nobody owns it. Two people worked on the revamp. Leela is the person other people ask for help. PageRank on <code>Person-[:KNOWS]-&gt;Person</code> ranks her above Nia, and that is why she is paged. The desk says so in the same sentence as the query.</p>
+
+    <h2>A freeze has to know where to stop</h2>
+    <p>TX-1042 is a flagged transfer out of account A-880. A-880 links to A-221, A-334, and A-902. Mira's two accounts link to each other and to nobody in that ring. Weakly connected components, restricted to <code>Account</code> and <code>LINKED_TO</code>, names the ring. Clearpath freezes that component and leaves the others open. Leela owns fraud review, so the handoff goes to her, again because of an edge.</p>
+
+    <p>If the component procedure ever returns a set that does not match the link traversal, the desk refuses it and shows both results. A wrong component is worse than a fallback.</p>
+
+    <h2>Memory that can change the next page</h2>
+    <p>Company knowledge and operator memory are different graphs in the same FalkorDB process. <code>harbor</code> holds the on-call rota. <code>memory_aditya</code> holds a standing order: next time ledger fails, page Rohan first. The next blast-radius question from Aditya pages Rohan, and the trace still draws Sara's <code>ON_CALL_FOR</code> edge so the override is visible. Priya's graph does not have the order, so the same question pages Sara.</p>
+
+    <p>Episodes are written after the answer is chosen, in that operator's graph. A new session can ask what already happened and get the earlier question back. Facts and procedures sit beside the episodes, which is the split people mean by semantic and procedural memory. The handoff between the impact agent and the people agent is a third graph, <code>coord</code>, so shared state is not stuffed into somebody's private memory.</p>
+
+    <p>The September ledger decision stays put. It is a human decision that cites a runbook. Agent decisions are marked <code>source: agent</code>. "What did we decide the last time ledger failed?" filters on the human source. The agent can open a new incident without rewriting history.</p>
+
+    <h2>What I would keep</h2>
+    <p>The useful constraint was: if the sentence is not backed by a row, do not say it. That made the UI a trace instead of a chat transcript. The Cypher stays on the screen with its parameters. The path is the product.</p>
+
+    <p>Grok helped me write the project during the hackathon. It does not answer Harbor Pay questions. An optional key lets it pick a tool when the rule planner does not recognize the wording, and the tool still has to query FalkorDB.</p>
+
+    <p>Repo: <a href="https://github.com/LENGND123/clearpath">github.com/LENGND123/clearpath</a></p>
+  </article>
+</body>
+</html>
