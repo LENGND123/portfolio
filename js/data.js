@@ -19,7 +19,7 @@ export const FALLBACK_USER = {
   html_url: 'https://github.com/LENGND123',
   blog: 'https://www.linkedin.com/in/aditya-raj-singh',
   email: 'sadityaraj369@gmail.com',
-  portfolio: 'https://adityarajsingh.co.in/',
+  portfolio: 'https://lengnd123.github.io/portfolio/',
 }
 
 export const FALLBACK_PROJECTS = [

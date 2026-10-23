@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://adityarajsingh.co.in/sitemap.xml
+Sitemap: https://lengnd123.github.io/portfolio/sitemap.xml
