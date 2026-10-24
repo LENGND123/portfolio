@@ -396,7 +396,7 @@ export function createWorld(scene, { content, font, anisotropy = 8 }) {
   addDecal(scene, ['ENTER', 'PROFILE'], -9.5, -16, 3.2, 1.15, 700, faceProfile)
 
   let tileIndex = 0
-  for (let z = 12; z >= -124; z -= 3.15) {
+  for (let z = 12; z >= -140; z -= 3.15) {
     const sway = tileIndex % 3 === 0 ? 0.55 : tileIndex % 3 === 1 ? -0.3 : 0.1
     addTile(scene, -5.7 + sway, z, tileIndex % 2 ? 0.16 : -0.1)
     tileIndex += 1
@@ -415,6 +415,7 @@ export function createWorld(scene, { content, font, anisotropy = 8 }) {
     [-9.2, 5.4, 1.02], [8.6, -15.5, 1.08], [15.5, -9.5, 0.9], [-18.5, -9.2, 1.05],
     [24, -30, 1.15], [-10, -42, 0.95], [13.5, -50, 1.05], [18, -66, 0.9],
     [-7, -74, 1.1], [6, -90, 0.88], [-16, -28, 0.96], [26, -48, 1],
+    [14, -120, 0.92], [-8, -132, 1],
   ]
   for (const [x, z, scale] of trees) addTree(scene, colliders, x, z, scale)
 

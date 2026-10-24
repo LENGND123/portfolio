@@ -32,6 +32,14 @@ export const FALLBACK_PROJECTS = [
     image: 'assets/previews/stock-prediction-dashboard.png',
   },
   {
+    repo: 'job-portal',
+    description: 'Students search and apply. Recruiters post jobs and review applicants.',
+    language: 'JavaScript',
+    stack: 'JAVASCRIPT  ·  MERN',
+    url: 'https://job-portal-pied-omega.vercel.app/',
+    image: 'assets/previews/job-portal.png',
+  },
+  {
     repo: 'ai-interview-prep',
     description: 'MERN interview practice with JWT auth, Gemini question generation and scoring, and saved history.',
     language: 'JavaScript',
