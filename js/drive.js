@@ -128,9 +128,9 @@ export function stepDrive(state, input, dt, colliders = []) {
   const dx = state.x - 2
   const dz = state.z + 28
   const dist = Math.hypot(dx, dz)
-  if (dist > 100) {
-    state.x = 2 + (dx / dist) * 100
-    state.z = -28 + (dz / dist) * 100
+  if (dist > 130) {
+    state.x = 2 + (dx / dist) * 130
+    state.z = -28 + (dz / dist) * 130
     state.speed *= 0.4
   }
 

@@ -32,6 +32,14 @@ export const FALLBACK_PROJECTS = [
     image: 'assets/previews/stock-prediction-dashboard.png',
   },
   {
+    repo: 'uber-clone',
+    description: 'Ride-hailing demo with a rider, a captain, a live map, an OTP, and cash fare.',
+    language: 'JavaScript',
+    stack: 'JAVASCRIPT  ·  REACT  ·  NODE',
+    url: 'https://uber-clone-xi-jade.vercel.app',
+    image: 'assets/previews/uber-clone.png',
+  },
+  {
     repo: 'job-portal',
     description: 'Students search and apply. Recruiters post jobs and review applicants.',
     language: 'JavaScript',

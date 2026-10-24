@@ -396,7 +396,7 @@ export function createWorld(scene, { content, font, anisotropy = 8 }) {
   addDecal(scene, ['ENTER', 'PROFILE'], -9.5, -16, 3.2, 1.15, 700, faceProfile)
 
   let tileIndex = 0
-  for (let z = 12; z >= -140; z -= 3.15) {
+  for (let z = 12; z >= -165; z -= 3.15) {
     const sway = tileIndex % 3 === 0 ? 0.55 : tileIndex % 3 === 1 ? -0.3 : 0.1
     addTile(scene, -5.7 + sway, z, tileIndex % 2 ? 0.16 : -0.1)
     tileIndex += 1
