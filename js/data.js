@@ -24,6 +24,13 @@ export const FALLBACK_USER = {
 
 export const FALLBACK_PROJECTS = [
   {
+    repo: 'Mori',
+    description: 'A gentle daily companion for tasks, focus sessions, and private reflections.',
+    language: 'JavaScript',
+    stack: 'HTML  ·  CSS  ·  JAVASCRIPT',
+    url: 'https://adityarajsingh.co.in/mori/',
+  },
+  {
     repo: 'Stock-Prediction-Dashboard',
     description: 'Yahoo Finance dashboard with linear regression and random forest forecasts for the next close.',
     language: 'Python',
